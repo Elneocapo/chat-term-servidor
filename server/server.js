@@ -1,41 +1,41 @@
-//IMPORTAR LIBRERIA
-import { WebSocketServer, WebSocket } from "ws";
+// IMPORTAR LIBRERIA
+import { WebSocketServer } from "ws";
 
-//creamos servidor y le decimos que escuche al puerto 3000
-const servidor = new WebSocketServer({ port: 3000 });
+// Definimos el puerto: Render usa process.env.PORT
+const PORT = process.env.PORT || 3000;
 
-//funcion que se ejecuta cuando el cliente se conecta
+// Creamos el servidor usando el puerto dinámico
+const servidor = new WebSocketServer({ port: PORT });
+
+console.log(`Servidor WebSocket corriendo en el puerto ${PORT}`);
+
 servidor.on("connection", (ws) => {
-  console.log("cliente conectado");
+  console.log("Cliente conectado");
 
-
-  //el servidor manda mensaje SOLO al cliente que se acaba de conectar (no a todos)
+  // El servidor manda mensaje de bienvenida
   ws.send("Bienvenido 👋");
 
+  ws.on("message", (data) => {
+    // Importante: En versiones modernas de 'ws', message suele ser un Buffer.
+    // Lo convertimos a String para poder usar .includes()
+    let datos_recibidos = data.toString();
 
-  //cuando este cliente me mande algo, avísame
-  ws.on("message", (message) => {
+    // Lógica para enviar a todos los clientes
+    if (datos_recibidos.includes("ALLCLIENTS_LOG")) {
+      
+      servidor.clients.forEach((client) => {
+        // client.readyState === 1 significa que la conexión está OPEN
+        if (client.readyState === 1) {
+          // Limpiamos el mensaje y lo enviamos
+          const mensajeLimpio = datos_recibidos.replace("ALLCLIENTS_LOG", "").trim();
+          client.send(JSON.stringify(["Server", mensajeLimpio]));
+        }
+      });
 
-    let datos_recibidos = message;
-
-    //Miraver si el mensaje es para el servidor o no
-    if(datos_recibidos.includes("ALLCLIENTS_LOG")){
-
-        servidor.clients.forEach((client) => {
-                if (client.readyState === 1) {
-                                //el JSON mierda ese es para que se mande como array
-                    client.send(JSON.stringify([datos_recibidos[0], datos_recibidos[1].replace("ALLCLIENTS_LOG", "").trim()]));
-                }
-        });
-
-    }else{
-        console.log(datos_recibidos);
+    } else {
+      console.log("Mensaje recibido:", datos_recibidos);
     }
-        
-
   });
 
-
-
-
+  ws.on("error", (error) => console.error("Error en socket:", error));
 });
