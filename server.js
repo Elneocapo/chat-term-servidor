@@ -36,7 +36,7 @@ ws.send("Bienvenido 👋");
 
  //Miraver si el mensaje es para el servidor o no
 
- if(datos_recibidos[1].includes("ALLCLIENTS_LOG")){
+ if(datos_recibidos.includes("ALLCLIENTS_LOG")){
 
 
 
@@ -62,6 +62,7 @@ ws.send("Bienvenido 👋");
 
  });
 });
+
 
 
 
