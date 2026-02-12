@@ -42,13 +42,13 @@ ws.send("Bienvenido 👋");
 
  servidor.clients.forEach((client) => {
 
- if (client.readyState === 1) {
+ //if (client.readyState === 1) {
 
         //el JSON mierda ese es para que se mande como array
 
           client.send(JSON.stringify([datos_recibidos[0], datos_recibidos[1].toString().replace("ALLCLIENTS_LOG", "").trim()]));
 
-       }
+      // }
 
    });
 
@@ -63,6 +63,7 @@ ws.send("Bienvenido 👋");
 
  });
 });
+
 
 
 
