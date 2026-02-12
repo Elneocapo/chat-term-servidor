@@ -30,13 +30,13 @@ ws.send("Bienvenido 👋");
 
  let mensajetexto = message.toString();
 
- let datos_recibidos = JSON.parse(mensajetexto);
+ let datos_recibidos = mensajetexto.split(",");
 
 
 
  //Miraver si el mensaje es para el servidor o no
 
- if(datos_recibidos.includes("ALLCLIENTS_LOG")){
+ if(datos_recibidos[1].includes("ALLCLIENTS_LOG")){
 
 
 
@@ -62,5 +62,6 @@ ws.send("Bienvenido 👋");
 
  });
 });
+
 
 
