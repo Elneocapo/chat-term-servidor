@@ -46,8 +46,8 @@ console.log(datos_recibidos);
 
         //el JSON mierda ese es para que se mande como array
 
-          client.send(datos_recibidos[0], datos_recibidos[1].toString().replace("ALLCLIENTS_LOG", "").trim());
-         console.log(datos_recibidos[0], datos_recibidos[1].toString().replace("ALLCLIENTS_LOG", "").trim());
+          client.send(datos_recibidos.toString().replace("ALLCLIENTS_LOG", "").trim());
+         console.log(datos_recibidos.toString().replace("ALLCLIENTS_LOG", "").trim());
 
       // }
 
@@ -64,6 +64,7 @@ console.log(datos_recibidos);
 
  });
 });
+
 
 
 
