@@ -27,11 +27,11 @@ ws.send("Bienvenido 👋");
 //cuando este cliente me mande algo, avísame
 
     ws.on("message", (message) => {
-
+console.log(message);
  let mensajetexto = message.toString();
-
+console.log(mensajetexto);
  let datos_recibidos = mensajetexto.split(",");
-
+console.log(datos_recibidos);
 
 
  //Miraver si el mensaje es para el servidor o no
@@ -63,6 +63,7 @@ ws.send("Bienvenido 👋");
 
  });
 });
+
 
 
 
