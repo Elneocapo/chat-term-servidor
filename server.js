@@ -38,7 +38,11 @@ console.log(datos_recibidos);
 
  if(datos_recibidos.includes("ALLCLIENTS_LOG")){
 
-
+let mensajefinal  = datos_recibidos.toString().replace("ALLCLIENTS_LOG", "").trim();
+console.log("M1" + mensajefinal);
+mensajefinal = mensajefinal.replace("[","").trim();
+mensajefinal = mensajefinal.replace("]","").trim();
+console.log("M2" + mensajefinal);
 
  servidor.clients.forEach((client) => {
 
@@ -46,8 +50,8 @@ console.log(datos_recibidos);
 
         //el JSON mierda ese es para que se mande como array
 
-          client.send(datos_recibidos.toString().replace("ALLCLIENTS_LOG", "").trim());
-         console.log(datos_recibidos.toString().replace("ALLCLIENTS_LOG", "").trim());
+          client.send(mensajefinal);
+         console.log(mensajefinal);
 
       // }
 
@@ -64,6 +68,7 @@ console.log(datos_recibidos);
 
  });
 });
+
 
 
 
