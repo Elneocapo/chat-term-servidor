@@ -43,6 +43,7 @@ console.log("M1" + mensajefinal);
 mensajefinal = mensajefinal.replace("[","").trim();
 mensajefinal = mensajefinal.replace("]","").trim();
 console.log("M2" + mensajefinal);
+mensajefinal = mensajefinal.replace(/"/g, "").trim();
 
  servidor.clients.forEach((client) => {
 
@@ -68,6 +69,7 @@ console.log("M2" + mensajefinal);
 
  });
 });
+
 
 
 
