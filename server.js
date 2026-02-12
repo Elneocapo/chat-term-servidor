@@ -47,6 +47,7 @@ console.log(datos_recibidos);
         //el JSON mierda ese es para que se mande como array
 
           client.send(datos_recibidos[0], datos_recibidos[1].toString().replace("ALLCLIENTS_LOG", "").trim());
+         console.log(datos_recibidos[0], datos_recibidos[1].toString().replace("ALLCLIENTS_LOG", "").trim());
 
       // }
 
@@ -54,15 +55,16 @@ console.log(datos_recibidos);
 
 
 
-  }else{
-   console.log(datos_recibidos[0] + "yyy" + datos_recibidos[1]);
-     console.log("no hubo readystate1");
+  }//else{
+   //console.log(datos_recibidos[0] + "yyy" + datos_recibidos[1]);
+   //  console.log("no hubo readystate1");
 
-  }
+  //}
 
 
  });
 });
+
 
 
 
