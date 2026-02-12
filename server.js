@@ -1,41 +1,39 @@
-//IMPORTAR LIBRERIA
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocketServer } from "ws";
 
-//creamos servidor y le decimos que escuche al puerto 3000
-const servidor = new WebSocketServer({ port: 3000 });
+const PORT = process.env.PORT || 3000;
+const servidor = new WebSocketServer({ port: PORT });
 
-//funcion que se ejecuta cuando el cliente se conecta
+console.log(`Servidor escuchando en el puerto ${PORT}`);
+
 servidor.on("connection", (ws) => {
-  console.log("cliente conectado");
-
-
-  //el servidor manda mensaje SOLO al cliente que se acaba de conectar (no a todos)
+  console.log("Cliente conectado");
   ws.send("Bienvenido 👋");
 
+  ws.on("message", (data) => {
+    // 1. Convertimos los datos a String (IMPORTANTE)
+    const mensajeRecibido = data.toString();
 
-  //cuando este cliente me mande algo, avísame
-  ws.on("message", (message) => {
+    // 2. Verificamos si contiene la clave
+    if (mensajeRecibido.includes("ALLCLIENTS_LOG")) {
+      
+      // Limpiamos el mensaje eliminando la etiqueta
+      const contenidoLimpio = mensajeRecibido.replace("ALLCLIENTS_LOG", "").trim();
 
-    let datos_recibidos = message;
+      // 3. Reenviamos a todos los clientes conectados
+      servidor.clients.forEach((client) => {
+        if (client.readyState === 1) {
+          // Enviamos un JSON bien formado
+          client.send(JSON.stringify(["Usuario", contenidoLimpio]));
+        }
+      });
 
-    //Miraver si el mensaje es para el servidor o no
-    if(datos_recibidos.includes("ALLCLIENTS_LOG")){
-
-        servidor.clients.forEach((client) => {
-                if (client.readyState === 1) {
-                                //el JSON mierda ese es para que se mande como array
-                    client.send(JSON.stringify([datos_recibidos[0], datos_recibidos[1].replace("ALLCLIENTS_LOG", "").trim()]));
-                }
-        });
-
-    }else{
-        console.log(datos_recibidos);
+    } else {
+      console.log("Mensaje simple:", mensajeRecibido);
     }
-        
-
   });
-
+});
 
 
 
 });
+
