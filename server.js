@@ -56,12 +56,14 @@ ws.send("Bienvenido 👋");
 
   }else{
    console.log(datos_recibidos);
+     console.log("no hubo readystate1");
 
   }
 
 
  });
 });
+
 
 
 
