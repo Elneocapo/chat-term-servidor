@@ -30,7 +30,7 @@ ws.send("Bienvenido 👋");
 console.log(message);
  let mensajetexto = message.toString();
 console.log(mensajetexto);
- let datos_recibidos = mensajetexto.split(",");
+ let datos_recibidos = mensajetexto;
 console.log(datos_recibidos);
 
 
@@ -63,6 +63,7 @@ console.log(datos_recibidos);
 
  });
 });
+
 
 
 
