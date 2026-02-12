@@ -28,7 +28,7 @@ ws.send("Bienvenido 👋");
 
     ws.on("message", (message) => {
 
-let mesajetexto = message.toString();
+ let mensajetexto = message.toString();
 
  let datos_recibidos = JSON.parse(mensajetexto);
 
@@ -62,4 +62,5 @@ let mesajetexto = message.toString();
 
  });
 });
+
 
