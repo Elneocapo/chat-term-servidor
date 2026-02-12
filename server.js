@@ -55,7 +55,7 @@ ws.send("Bienvenido 👋");
 
 
   }else{
-   console.log(datos_recibidos);
+   console.log(datos_recibidos[0] + "yyy" + datos_recibidos[1]);
      console.log("no hubo readystate1");
 
   }
@@ -63,6 +63,7 @@ ws.send("Bienvenido 👋");
 
  });
 });
+
 
 
 
