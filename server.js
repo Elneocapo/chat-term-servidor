@@ -10,30 +10,24 @@ servidor.on("connection", (ws) => {
   ws.send("Bienvenido 👋");
 
   ws.on("message", (data) => {
-    // 1. Convertimos los datos a String (IMPORTANTE)
+    // Convertimos el Buffer a String
     const mensajeRecibido = data.toString();
 
-    // 2. Verificamos si contiene la clave
     if (mensajeRecibido.includes("ALLCLIENTS_LOG")) {
-      
-      // Limpiamos el mensaje eliminando la etiqueta
+      // Limpiamos el mensaje
       const contenidoLimpio = mensajeRecibido.replace("ALLCLIENTS_LOG", "").trim();
 
-      // 3. Reenviamos a todos los clientes conectados
+      // Enviamos a todos los clientes conectados
       servidor.clients.forEach((client) => {
         if (client.readyState === 1) {
-          // Enviamos un JSON bien formado
-          client.send(JSON.stringify(["Usuario", contenidoLimpio]));
+          client.send(JSON.stringify(["Server", contenidoLimpio]));
         }
       });
-
     } else {
-      console.log("Mensaje simple:", mensajeRecibido);
+      console.log("Mensaje recibido:", mensajeRecibido);
     }
   });
+
+  // Manejo de errores para que el server no se caiga
+  ws.on("error", (err) => console.error("Error en el socket:", err));
 });
-
-
-
-});
-
